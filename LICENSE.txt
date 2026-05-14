@@ -1,0 +1,4 @@
+MxSim Racing OBS Overlay v2.0.11
+
+This package is provided for use with OBS and the MxSim Racing league overlay workflow.
+Use responsibly and respect the source website.

@@ -1,0 +1,16 @@
+Public release workflow
+=======================
+
+1. On a Windows PC, install Python for Windows.
+   During install: enable "Add python.exe to PATH".
+
+2. Install Inno Setup 6.
+
+3. Run:
+   BUILD_INSTALLER.bat
+
+4. Share only this file with normal users:
+   release\MxSimRacingOBSOverlay-v2.0.11-Setup.exe
+
+Normal users do NOT need Python, PyInstaller, Inno Setup, or any command line steps.
+They only run the setup file, open the app, enter their rider name, and copy the OBS URL.

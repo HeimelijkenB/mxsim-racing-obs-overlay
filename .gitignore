@@ -1,0 +1,29 @@
+# PyInstaller / build outputs
+build/
+dist/
+release/
+build_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+ENV/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+
+# App runtime data (next to exe or cwd)
+mxsim_overlay_settings_v2_0_11.json
+overlay_data.json
+
+# OS / editor
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
