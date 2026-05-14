@@ -439,17 +439,23 @@ def parse_player_from_text(text, player_name):
             return None
         idx = min(token_hits)
 
+    # League UI often concatenates tokens (e.g. "Amateur III32 races1441") so avoid \b between
+    # letters/digits where the site omits spaces. Optional Roman numeral after the tier word.
     levels = r"Rookie|Amateur|Pro|Elite|Legend|Expert|Novice"
+    tier = r"\b(" + levels + r")(?:\s*[IVX]{1,4})?"
 
     # First, parse complete ranking rows from the full rendered page text.
-    # This keeps the robust v2.0.6/2.0.7 full-page parser behavior while still allowing partial searches.
     row_patterns = [
         re.compile(
-            r"(?:^|\s)#?\s*(\d{1,5})\s+(.{2,110}?)\s+(?:🔥\s*)?\b(" + levels + r")\b\s*(?:[·•\-])?\s*(\d+)\s*RACES?\s+(\d{3,5})\b(?:\s*([+-]\d+))?",
+            r"(?:^|\s)#?\s*(\d{1,5})\s+(.{2,140}?)\s+(?:🔥\s*)?"
+            + tier
+            + r"\s*(\d+)\s*RACES?\s*(\d{3,5})(?:\s*([+-]\d+))?(?=\s|$|[^\d])",
             re.I,
         ),
         re.compile(
-            r"(?:^|\s)#?\s*(\d{1,5})\s+(.{2,110}?)\s+(?:🔥\s*)?\b(" + levels + r")\b.*?\b(\d+)\s*RACES?\b\s*(\d{3,5})\b(?:\s*([+-]\d+))?",
+            r"(?:^|\s)#?\s*(\d{1,5})\s+(.{2,140}?)\s+(?:🔥\s*)?"
+            + tier
+            + r".{0,48}?(\d+)\s*RACES?\s*(\d{3,5})(?:\s*([+-]\d+))?(?=\s|$|[^\d])",
             re.I,
         ),
     ]
@@ -488,7 +494,9 @@ def parse_player_from_text(text, player_name):
     # Try to parse from the visible context after the matched query token. Do not require
     # the typed query to equal the official website name.
     exact_match = re.search(
-        r".{0,140}?\b(" + levels + r")\b.*?\b(\d+)\s*RACES?\b\s*(\d{3,5})\b(?:\s*([+-]\d+))?",
+        r".{0,180}?"
+        + tier
+        + r"\s*(\d+)\s*RACES?\s*(\d{3,5})(?:\s*([+-]\d+))?(?=\s|$|[^\d])",
         after,
         re.I,
     )
@@ -505,13 +513,19 @@ def parse_player_from_text(text, player_name):
         if races_match:
             races = races_match.group(1)
             tail = after[races_match.end():races_match.end() + 120]
-            rating_match = re.search(r"\b(\d{3,5})\b", tail)
+            rating_match = re.search(r"^\s*(\d{3,5})\b", tail)
+            if not rating_match:
+                rating_match = re.search(r"(?:^|\D)(\d{3,5})\b", tail)
             if rating_match:
                 rating = rating_match.group(1)
         if rating == "?":
-            candidates = re.findall(r"\b(\d{3,5})\b", after[:160])
+            glued = re.search(r"(?:races|race)\s*(\d{3,5})\b", after[:220], re.I)
+            if glued:
+                rating = glued.group(1)
+        if rating == "?":
+            candidates = re.findall(r"(?:^|\D)(\d{3,5})(?=\D|$)", after[:220])
             if candidates:
-                rating = candidates[0]
+                rating = candidates[-1]
 
     if rank_change is None and rating != "?":
         rating_pos = after.find(str(rating))
@@ -685,7 +699,7 @@ def click_load_more_if_available(driver):
     """
     try:
         return bool(driver.execute_script(r"""
-            const words = ['load more', 'show more', 'more'];
+            const words = ['load more', 'show more', 'more', 'afficher plus', 'voir plus', 'mehr anzeigen', 'meer tonen'];
             function visible(el){
                 const r = el.getBoundingClientRect();
                 const s = window.getComputedStyle(el);
