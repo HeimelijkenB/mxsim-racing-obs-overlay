@@ -38,7 +38,7 @@ except Exception:
     SeleniumChromeOptions = None
 
 APP_NAME = "MxSim Racing OBS Overlay"
-APP_VERSION = "2.0.12"
+APP_VERSION = "2.0.13"
 APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
 DEFAULT_SCRAPE_INTERVAL_SECONDS = 180
 OVERLAY_POLL_SECONDS = 5
@@ -424,6 +424,41 @@ def query_matches_text(query, text):
     toks = query_tokens(q)
     return bool(toks) and all(tok in t for tok in toks)
 
+
+def best_partial_name_index(low, needle):
+    """Pick a start index in ``low`` when the full query is not a contiguous substring.
+
+    Using ``min(find(tok) for tok in ...)`` is wrong for names with Dutch/German
+    particles: ``van`` and ``den`` match navigation and unrelated copy before the
+    standings. Anchor on longer distinctive tokens and require every token inside
+    one short window so the fallback parser sees the real rider row.
+    """
+    toks = query_tokens(needle)
+    if not toks:
+        return -1
+    if len(toks) == 1:
+        i = low.find(toks[0])
+        return i if i >= 0 else -1
+
+    unique_by_length = sorted(set(toks), key=len, reverse=True)
+    window = 340
+    max_tries = 200
+
+    for anchor in unique_by_length:
+        p = 0
+        for _ in range(max_tries):
+            i = low.find(anchor, p)
+            if i < 0:
+                break
+            span = low[i : i + window]
+            if all(t in span for t in toks):
+                return i
+            p = i + 1
+
+    hits = [low.find(t) for t in toks if low.find(t) >= 0]
+    return min(hits) if hits else -1
+
+
 def parse_player_from_text(text, player_name):
     raw_text = text or ""
     simple = normalize_text(raw_text)
@@ -433,11 +468,9 @@ def parse_player_from_text(text, player_name):
         return None
     idx = low.find(needle)
     if idx < 0:
-        # Partial/fuzzy search support: find the first location of any query token.
-        token_hits = [low.find(tok) for tok in query_tokens(needle) if low.find(tok) >= 0]
-        if not token_hits:
+        idx = best_partial_name_index(low, needle)
+        if idx < 0:
             return None
-        idx = min(token_hits)
 
     # League UI often concatenates tokens (e.g. "Amateur III32 races1441") so avoid \b between
     # letters/digits where the site omits spaces. Optional Roman numeral after the tier word.

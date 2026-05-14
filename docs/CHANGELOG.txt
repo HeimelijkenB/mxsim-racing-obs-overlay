@@ -1,3 +1,6 @@
+MxSim Racing OBS Overlay v2.0.13
+- Partial-name search no longer anchors on the leftmost token hit. Names with common particles (e.g. Dutch "van", "den") used to match navigation text first and break the fallback parser.
+
 MxSim Racing OBS Overlay v2.0.12
 - Fixed league row parsing when the site omits spaces (e.g. tier + race count + "races" + ELO glued together), which caused false "player not found" results.
 - Broader "load more" button labels (FR/DE/NL) for expanding long standings.
