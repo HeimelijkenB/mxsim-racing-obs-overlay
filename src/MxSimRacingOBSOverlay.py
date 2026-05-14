@@ -38,7 +38,7 @@ except Exception:
     SeleniumChromeOptions = None
 
 APP_NAME = "MxSim Racing OBS Overlay"
-APP_VERSION = "2.0.11"
+APP_VERSION = "2.0.12"
 APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
 DEFAULT_SCRAPE_INTERVAL_SECONDS = 180
 OVERLAY_POLL_SECONDS = 5
