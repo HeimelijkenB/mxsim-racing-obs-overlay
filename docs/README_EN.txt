@@ -1,4 +1,4 @@
-MxSim Racing OBS Overlay v2.0.12
+MxSim Racing OBS Overlay v2.0.13
 
 A Windows app that creates a local OBS Browser Source overlay for the MxSim Racing league ranking page.
 

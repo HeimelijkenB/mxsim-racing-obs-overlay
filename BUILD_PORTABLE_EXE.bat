@@ -1,11 +1,11 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Build MxSim Racing OBS Overlay v2.0.12
+title Build MxSim Racing OBS Overlay v2.0.13
 
 echo.
 echo ===============================================
-echo  MxSim Racing OBS Overlay v2.0.12 - EXE Builder
+echo  MxSim Racing OBS Overlay v2.0.13 - EXE Builder
 echo ===============================================
 echo.
 

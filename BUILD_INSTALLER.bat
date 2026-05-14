@@ -1,11 +1,11 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Build Installer - MxSim Racing OBS Overlay v2.0.12
+title Build Installer - MxSim Racing OBS Overlay v2.0.13
 
 echo.
 echo ===============================================
-echo  MxSim Racing OBS Overlay v2.0.12 - Installer Builder
+echo  MxSim Racing OBS Overlay v2.0.13 - Installer Builder
 echo ===============================================
 echo.
 
@@ -56,11 +56,11 @@ if errorlevel 1 (
     exit /b 1
 )
 
-if exist "release\MxSimRacingOBSOverlay-v2.0.12-Setup.exe" (
+if exist "release\MxSimRacingOBSOverlay-v2.0.13-Setup.exe" (
     echo.
     echo ===============================================
     echo Installer created:
-    echo release\MxSimRacingOBSOverlay-v2.0.12-Setup.exe
+    echo release\MxSimRacingOBSOverlay-v2.0.13-Setup.exe
     echo ===============================================
 ) else (
     echo.
