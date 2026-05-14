@@ -1,3 +1,7 @@
+MxSim Racing OBS Overlay v2.0.12
+- Fixed league row parsing when the site omits spaces (e.g. tier + race count + "races" + ELO glued together), which caused false "player not found" results.
+- Broader "load more" button labels (FR/DE/NL) for expanding long standings.
+
 MxSim Racing OBS Overlay v2.0.11
 - Fixed rider parsing regression where a matched name could be found without full rank/rating/class/races.
 - Improved DOM row selection: app now prefers the full ranking card/row instead of the shortest name-only element.

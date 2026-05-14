@@ -4,7 +4,7 @@ Windows app that serves a **local OBS Browser Source** overlay from [MxSim Racin
 
 The desktop UI **loads the favicon and header image from [mxsimracing.com](https://mxsimracing.com/)** (homepage `og:image` + favicon link) into a per-user cache under `%APPDATA%\MxSim Racing OBS Overlay\branding_cache\`, refreshed about every **24 hours**. An internet connection is needed the first time (or after cache expiry).
 
-**Current version:** 2.0.11 (see [`docs/CHANGELOG.txt`](docs/CHANGELOG.txt)).
+**Current version:** 2.0.12 (see [`docs/CHANGELOG.txt`](docs/CHANGELOG.txt)).
 
 ## Repository layout
 
@@ -22,7 +22,7 @@ The desktop UI **loads the favicon and header image from [mxsimracing.com](https
 Pre-built **`.exe`** and **installer** are published on GitHub Releases (not in git history).
 
 1. Open **Releases**: [latest](https://github.com/HeimelijkenB/mxsim-racing-obs-overlay/releases/latest).
-2. Download **`MxSimRacingOBSOverlay.exe`** and/or **`MxSimRacingOBSOverlay-v2.0.11-Setup.exe`** (or the latest version's assets).
+2. Download **`MxSimRacingOBSOverlay-v2.0.12-Win64.exe`** (portable; rename to `MxSimRacingOBSOverlay.exe` if you like) and/or **`MxSimRacingOBSOverlay-v2.0.12-Setup.exe`** from the latest release assets.
 
 No Python is required for end users when using the Release binaries.
 
@@ -52,7 +52,7 @@ More detail: [`docs/README_EN.txt`](docs/README_EN.txt) (English) and [`docs/REA
 
 1. **Portable EXE:** run **`BUILD_PORTABLE_EXE.bat`**. It installs dependencies, runs **`scripts\fetch_branding_for_build.py`** to create **`build_cache\app.ico`**, then runs **`pyinstaller packaging\MxSimRacingOBSOverlay.spec`**.
 2. **Installer:** install [Inno Setup 6](https://jrsoftware.org/isdl.php), then run **`BUILD_INSTALLER.bat`**.  
-   Output: `release\MxSimRacingOBSOverlay-v2.0.11-Setup.exe` (version may change in future tags).  
+   Output: `release\MxSimRacingOBSOverlay-v2.0.12-Setup.exe` (version may change in future tags).  
    The installer uses **`build_cache\app.ico`** for the setup icon (Inno default wizard side images).
 
 See [`docs/PUBLIC_RELEASE_INSTRUCTIONS.txt`](docs/PUBLIC_RELEASE_INSTRUCTIONS.txt) for a short release checklist.
@@ -72,4 +72,4 @@ Source: [github.com/HeimelijkenB/mxsim-racing-obs-overlay](https://github.com/He
 
 ## Releases (maintainers)
 
-Create a **Release** tagged `v2.0.11` (or the current version) and attach the built **`dist\MxSimRacingOBSOverlay.exe`** and **`release\MxSimRacingOBSOverlay-v2.0.11-Setup.exe`** after building locally.
+Create a **Release** tagged `v2.0.12` (or the current version) and attach the built portable **`MxSimRacingOBSOverlay-v2.0.12-Win64.exe`** (copy from `dist\MxSimRacingOBSOverlay.exe`) and optionally **`release\MxSimRacingOBSOverlay-v2.0.12-Setup.exe`** after building locally.

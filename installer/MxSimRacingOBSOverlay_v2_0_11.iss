@@ -1,5 +1,5 @@
 #define MyAppName "MxSim Racing OBS Overlay"
-#define MyAppVersion "2.0.11"
+#define MyAppVersion "2.0.12"
 #define MyAppPublisher "Berre Brands & Heimel"
 #define MyAppExeName "MxSimRacingOBSOverlay.exe"
 
@@ -13,7 +13,7 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 LicenseFile=..\LICENSE.txt
 OutputDir=..\release
-OutputBaseFilename=MxSimRacingOBSOverlay-v2.0.11-Setup
+OutputBaseFilename=MxSimRacingOBSOverlay-v2.0.12-Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

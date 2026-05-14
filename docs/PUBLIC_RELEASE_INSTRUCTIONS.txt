@@ -1,16 +1,19 @@
 Public release workflow
 =======================
 
-1. On a Windows PC, install Python for Windows.
-   During install: enable "Add python.exe to PATH".
+Portable EXE only (GitHub Release asset)
+----------------------------------------
+1. On a Windows PC, install Python for Windows (tick "Add python.exe to PATH").
+2. Run: BUILD_PORTABLE_EXE.bat
+3. Copy dist\MxSimRacingOBSOverlay.exe to a versioned name, e.g. MxSimRacingOBSOverlay-v2.0.12-Win64.exe
+4. Attach that file to the GitHub Release.
 
-2. Install Inno Setup 6.
+Normal users only download the .exe, run it, enter their rider name, and copy the OBS URL.
 
-3. Run:
-   BUILD_INSTALLER.bat
+Windows installer (optional)
+----------------------------
+1. Install Inno Setup 6.
+2. Run: BUILD_INSTALLER.bat
+3. Share: release\MxSimRacingOBSOverlay-v2.0.12-Setup.exe
 
-4. Share only this file with normal users:
-   release\MxSimRacingOBSOverlay-v2.0.11-Setup.exe
-
-Normal users do NOT need Python, PyInstaller, Inno Setup, or any command line steps.
-They only run the setup file, open the app, enter their rider name, and copy the OBS URL.
+Normal users do NOT need Python, PyInstaller, Inno Setup, or any command line steps for either binary.
